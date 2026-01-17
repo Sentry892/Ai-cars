@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Self-driving car - No libraries</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="ui" style="position:fixed;top:10px;left:10px;z-index:10;color:white;font-family:sans-serif">
+    <label>
+        Cars (N):
+        <input id="carCountInput" type="number" min="1" max="5000" value="500">
+    </label>
+    <button onclick="restartSimulation()">Restart</button>
+    <br><br>
+    Alive: <span id="aliveCount">0</span>
+</div>
+
+<canvas id="carCanvas"></canvas>
+
+<div id="verticalButtons">
+    <button onclick="save()">💾</button>
+    <button onclick="discard()">🗑️</button>
+</div>
+
+<canvas id="networkCanvas"></canvas>
+
+<script src="visualizer.js"></script>
+<script src="network.js"></script>
+<script src="sensor.js"></script>
+<script src="utils.js"></script>
+<script src="road.js"></script>
+<script src="controls.js"></script>
+<script src="car.js"></script>
+<script src="main.js"></script>
+
+</body>
+</html>
