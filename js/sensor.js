@@ -1,16 +1,17 @@
+// Sensor class - detects obstacles using ray casting
 class Sensor{
     constructor(car){
         this.car=car;
         this.rayCount=5;
         this.rayLength=150;
-        this.raySpread=Math.PI/2;
+        this.raySpread=Math.PI/2; // 90 degree spread
 
         this.rays=[];
         this.readings=[];
     }
 
     update(roadBorders,traffic){
-        this.#castRays();
+        this.#castRays(); // Calculate ray endpoints
         this.readings=[];
         for(let i=0;i<this.rays.length;i++){
             this.readings.push(
@@ -24,8 +25,9 @@ class Sensor{
     }
 
     #getReading(ray,roadBorders,traffic){
-        let touches=[];
+        let touches=[]; // Store all intersections with obstacles
 
+        // Check intersections with road borders
         for(let i=0;i<roadBorders.length;i++){
             const touch=getIntersection(
                 ray[0],
@@ -38,6 +40,7 @@ class Sensor{
             }
         }
 
+        // Check intersections with other cars
         for(let i=0;i<traffic.length;i++){
             const poly=traffic[i].polygon;
             for(let j=0;j<poly.length;j++){
@@ -53,6 +56,7 @@ class Sensor{
             }
         }
 
+        // Return closest intersection (nearest obstacle)
         if(touches.length==0){
             return null;
         }else{
@@ -65,6 +69,7 @@ class Sensor{
     #castRays(){
         this.rays=[];
         for(let i=0;i<this.rayCount;i++){
+            // Distribute rays evenly across spread angle, relative to car angle
             const rayAngle=lerp(
                 this.raySpread/2,
                 -this.raySpread/2,
@@ -84,9 +89,10 @@ class Sensor{
 
     draw(ctx){
         for(let i=0;i<this.rayCount;i++){
+            // Draw ray from car to obstacle or full ray length
             let end=this.rays[i][1];
             if(this.readings[i]){
-                end=this.readings[i];
+                end=this.readings[i]; // Shorten ray to detected obstacle
             }
 
             ctx.beginPath();

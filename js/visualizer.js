@@ -1,4 +1,6 @@
-﻿class Visualizer{
+﻿// Visualizer - renders neural network structure and weights
+class Visualizer{
+    // draw entire network with all layers
     static drawNetwork(ctx,network){
         const margin=50;
         const left=margin;
@@ -8,6 +10,7 @@
 
         const levelHeight=height/network.levels.length;
 
+        // draw layers from bottom (inputs) to top (outputs)
         for(let i=network.levels.length-1;i>=0;i--){
             const levelTop=top+
                 lerp(
@@ -29,12 +32,14 @@
         }
     }
 
+    // draw a single network layer with input and output neurons
     static drawLevel(ctx,level,left,top,width,height,outputLabels){
         const right=left+width;
         const bottom=top+height;
 
         const {inputs,outputs,weights,biases}=level;
 
+        // draw connections (edges) colored by weight
         for(let i=0;i<inputs.length;i++){
             for(let j=0;j<outputs.length;j++){
                 ctx.beginPath();
@@ -53,6 +58,7 @@
         }
 
         const nodeRadius=18;
+        // draw input neurons colored by their values
         for(let i=0;i<inputs.length;i++){
             const x=Visualizer.#getNodeX(inputs,i,left,right);
             ctx.beginPath();
@@ -64,7 +70,7 @@
             ctx.fillStyle=getRGBA(inputs[i]);
             ctx.fill();
         }
-        
+        // draw output neurons with bias circles and control labels
         for(let i=0;i<outputs.length;i++){
             const x=Visualizer.#getNodeX(outputs,i,left,right);
             ctx.beginPath();
@@ -76,6 +82,7 @@
             ctx.fillStyle=getRGBA(outputs[i]);
             ctx.fill();
 
+            // bias indicator (dashed circle)
             ctx.beginPath();
             ctx.lineWidth=2;
             ctx.arc(x,top,nodeRadius*0.8,0,Math.PI*2);
@@ -98,6 +105,7 @@
         }
     }
 
+    // calculate horizontal position for node in layer
     static #getNodeX(nodes,index,left,right){
         return lerp(
             left,

@@ -1,4 +1,6 @@
+// Road Class
 class Road{
+    // Road proprieties
     constructor(x,width,laneCount=3){
         this.x=x;
         this.width=width;
@@ -7,7 +9,7 @@ class Road{
         this.left=x-width/2;
         this.right=x+width/2;
 
-        const infinity=1000000;
+        const infinity=1000000; // The length of the road
         this.top=-infinity;
         this.bottom=infinity;
 
@@ -21,12 +23,14 @@ class Road{
         ];
     }
 
+    // gets line center
     getLaneCenter(laneIndex){
         const laneWidth=this.width/this.laneCount;
         return this.left+laneWidth/2+
             Math.min(laneIndex,this.laneCount-1)*laneWidth;
     }
 
+    // draws the road
     draw(ctx){
         ctx.lineWidth=5;
         ctx.strokeStyle="white";

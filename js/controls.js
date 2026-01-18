@@ -1,3 +1,4 @@
+// Creates controlls for dummies and keys
 class Controls{
     constructor(type){
         this.forward=false;
@@ -6,7 +7,7 @@ class Controls{
         this.reverse=false;
 
         switch(type){
-            case "KEYS":
+            case "KEYS": // I want to make that you can munually control a dummy car
                 this.#addKeyboardListeners();
                 break;
             case "DUMMY":
@@ -15,6 +16,7 @@ class Controls{
         }
     }
 
+    // Currently doesn't do anything
     #addKeyboardListeners(){
         document.onkeydown=(event)=>{
             switch(event.key){

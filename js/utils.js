@@ -1,7 +1,10 @@
+// Linear interpolation between A and B at position t (0-1)
 function lerp(A,B,t){
     return A+(B-A)*t;
 }
 
+// Find intersection point between line segments AB and CD
+/**  @returns {x, y, offset} if intersecting, null otherwie */
 function getIntersection(A,B,C,D){ 
     const tTop=(D.x-C.x)*(A.y-C.y)-(D.y-C.y)*(A.x-C.x);
     const uTop=(C.y-A.y)*(A.x-B.x)-(C.x-A.x)*(A.y-B.y);
@@ -22,6 +25,7 @@ function getIntersection(A,B,C,D){
     return null;
 }
 
+// Check if two polygons intersect by testing all edge pairs
 function polysIntersect(poly1, poly2){
     for(let i=0;i<poly1.length;i++){
         for(let j=0;j<poly2.length;j++){
@@ -39,6 +43,7 @@ function polysIntersect(poly1, poly2){
     return false;
 }
 
+// Convert value (-1 to 1) to RGBA color: negative=blue, positive=red
 function getRGBA(value){
     const alpha=Math.abs(value);
     const R=value<0?0:255;
@@ -47,6 +52,7 @@ function getRGBA(value){
     return "rgba("+R+","+G+","+B+","+alpha+")";
 }
 
+/**  @returns {int} returns a random hsl  */
 function getRandomColor(){
     const hue=290+Math.random()*260;
     return "hsl("+hue+", 100%, 60%)";
