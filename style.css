@@ -29,7 +29,7 @@ body {
     margin-bottom: 10px;
 }
 
-#carCountInput {
+.carCountInput {
     width: 60px;
     padding: 4px 8px;
     background: #222;
@@ -39,17 +39,17 @@ body {
     border-radius: 3px;
 }
 
-#carCountInput::-webkit-outer-spin-button,
-#carCountInput::-webkit-inner-spin-button {
+.carCountInput::-webkit-outer-spin-button,
+.carCountInput::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
 
-#carCountInput[type=number] {
+.carCountInput[type=number] {
     -moz-appearance: textfield;
 }
 
-#carCountInput:focus {
+.carCountInput:focus {
     outline: none;
     border-color: #666;
     background: #2a2a2a;

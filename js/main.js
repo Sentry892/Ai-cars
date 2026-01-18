@@ -13,6 +13,7 @@ const networkCtx = networkCanvas.getContext("2d");
 // UI elements for displaying alive car count and input
 const aliveCountEl = document.getElementById("aliveCount");
 const carCountInput = document.getElementById("carCountInput");
+const nonAiCarCountInput = document.getElementById("nonAiCarCountInput");
 
 // ===== SIMULATION SETUP =====
 // Create the road with center at canvas middle and width of 90% of canvas width
@@ -25,41 +26,30 @@ let bestCar = null; // Tracks the car that has traveled the farthest
 // ===== TRAFFIC SETUP =====
 // Create dummy cars (not controlled by AI) that serve as traffic obstacles, TODO add a possibility to controll how many cars there are
 // Also don't put speed over 5 since the ai-cars can't handle that speed
-const traffic = [
-    new Car(road.getLaneCenter(1), -100, 30, 50, "DUMMY", 1, getRandomColor()), 
-    new Car(road.getLaneCenter(0), -300, 30, 50, "DUMMY", 2, getRandomColor()),
-    new Car(road.getLaneCenter(2), -300, 30, 50, "DUMMY", 2, getRandomColor()),
-    new Car(road.getLaneCenter(0), -500, 30, 50, "DUMMY", 2, getRandomColor()),
-    new Car(road.getLaneCenter(1), -500, 30, 50, "DUMMY", 2, getRandomColor()),
-    new Car(road.getLaneCenter(1), -700, 30, 50, "DUMMY", 2, getRandomColor()),
-    new Car(road.getLaneCenter(2), -700, 30, 50, "DUMMY", 2, getRandomColor()),
-    new Car(road.getLaneCenter(2), -500, 30, 50, "DUMMY", 3, getRandomColor()),
-    new Car(road.getLaneCenter(1), -100, 30, 50, "DUMMY", 2, getRandomColor()), 
-    new Car(road.getLaneCenter(0), -300, 30, 50, "DUMMY", 2, getRandomColor()),
-    new Car(road.getLaneCenter(2), -300, 30, 50, "DUMMY", 2, getRandomColor()),
-    new Car(road.getLaneCenter(0), -500, 30, 50, "DUMMY", 1, getRandomColor()),
-    new Car(road.getLaneCenter(1), -500, 30, 50, "DUMMY", 1, getRandomColor()),
-    new Car(road.getLaneCenter(1), -700, 30, 50, "DUMMY", 3, getRandomColor()),
-    new Car(road.getLaneCenter(2), -700, 30, 50, "DUMMY", 2, getRandomColor()),
-    new Car(road.getLaneCenter(2), -500, 30, 50, "DUMMY", 3, getRandomColor()),
-    new Car(road.getLaneCenter(1), -100, 30, 50, "DUMMY", 2, getRandomColor()), 
-    new Car(road.getLaneCenter(0), -300, 30, 50, "DUMMY", 1, getRandomColor()),
-    new Car(road.getLaneCenter(2), -300, 30, 50, "DUMMY", 2, getRandomColor()),
-    new Car(road.getLaneCenter(0), -500, 30, 50, "DUMMY", 3, getRandomColor()),
-    new Car(road.getLaneCenter(1), -500, 30, 50, "DUMMY", 3, getRandomColor()),
-    new Car(road.getLaneCenter(1), -700, 30, 50, "DUMMY", 3, getRandomColor()),
-    new Car(road.getLaneCenter(2), -700, 30, 50, "DUMMY", 2, getRandomColor()),
-    new Car(road.getLaneCenter(2), -500, 30, 50, "DUMMY", 3, getRandomColor()),
-    new Car(road.getLaneCenter(1), -100, 30, 50, "DUMMY", 2, getRandomColor()), 
-    new Car(road.getLaneCenter(0), -300, 30, 50, "DUMMY", 2, getRandomColor()),
-    new Car(road.getLaneCenter(2), -300, 30, 50, "DUMMY", 2, getRandomColor()),
-    new Car(road.getLaneCenter(0), -500, 30, 50, "DUMMY", 2, getRandomColor()),
-    new Car(road.getLaneCenter(1), -500, 30, 50, "DUMMY", 2, getRandomColor()),
-    new Car(road.getLaneCenter(1), -700, 30, 50, "DUMMY", 2, getRandomColor()),
-    new Car(road.getLaneCenter(2), -700, 30, 50, "DUMMY", 2, getRandomColor()),
-    new Car(road.getLaneCenter(2), -500, 30, 50, "DUMMY", 3, getRandomColor()),
+const traffic = [];
 
-];
+const lanes = [0, 1, 2];
+const carCount = Number(nonAiCarCountInput.value);
+let y = -100;
+
+for (let i = 0; i < carCount; i++) {
+    const lane = lanes[Math.floor(Math.random() * lanes.length)];
+    const speed = 1 + Math.floor(Math.random() * 3);
+
+    traffic.push(
+        new Car(
+            road.getLaneCenter(lane),
+            y,
+            30,
+            50,
+            "DUMMY",
+            speed,
+            getRandomColor()
+        )
+    );
+
+    y -= 200 + Math.random() * 200; // spacing
+}
 
 // ===== INITIALIZATION =====
 // Initialize the simulation and start the animation loop

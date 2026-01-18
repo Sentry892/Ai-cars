@@ -10,7 +10,11 @@
 <div id="ui" style="position:fixed;top:10px;left:10px;z-index:10;color:white;font-family:sans-serif">
     <label>
         Cars (N):
-        <input id="carCountInput" type="number" min="1" max="5000" value="500">
+        <input class="carCountInput" id="carCountInput" type="number" min="1" max="5000" value="500">
+    </label>
+     <label>
+        NonAiCars (N):
+        <input class="carCountInput" id="nonAiCarCountInput" type="number" min="1" max="5000" value="30">
     </label>
     <button onclick="restartSimulation()">Restart</button>
     <br><br>
