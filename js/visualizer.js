@@ -40,6 +40,7 @@ class Visualizer{
         const {inputs,outputs,weights,biases}=level;
 
         // draw connections (edges) colored by weight
+        ctx.setLineDash([]);
         for(let i=0;i<inputs.length;i++){
             for(let j=0;j<outputs.length;j++){
                 ctx.beginPath();
